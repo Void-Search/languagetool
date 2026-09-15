@@ -1,0 +1,5 @@
+<configuration>
+    <!-- Upstream request/error messages can include client parameters. Docker
+         health status and HTTP responses provide runtime diagnostics instead. -->
+    <root level="OFF"/>
+</configuration>

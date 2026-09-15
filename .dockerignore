@@ -1,0 +1,10 @@
+.git
+**/.git
+**/target
+**/.flattened-pom.xml
+**/.idea
+**/.vscode
+**/__pycache__
+**/.env
+**/*.local.*
+**/*.log
