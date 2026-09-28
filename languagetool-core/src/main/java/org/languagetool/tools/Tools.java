@@ -318,34 +318,43 @@ public final class Tools {
     for (CategoryId id : disabledCategories) {
       lt.disableCategory(id);
     }
-    if (enabledCategories.size() > 0) {
-      for (CategoryId id : enabledCategories) {
-        lt.enableRuleCategory(id);
-      }
-      if (useEnabledOnly) {
-        // disable all rules except those in explicitly enabled categories, if any:
-        for (Rule rule : lt.getAllRules()) {
-          Category category = rule.getCategory();
-          if (!enabledCategories.contains(category.getId())) {
-            lt.disableRule(rule.getFullId());
-          }
-        }
-      }
+    for (CategoryId id : enabledCategories) {
+      lt.enableRuleCategory(id);
     }
     // disable rules that are disabled explicitly:
     for (String disabledRule : disabledRules) {
       lt.disableRule(disabledRule);
     }
     // enable rules
-    if (enabledRules.size() > 0) {
-      for (String ruleName : enabledRules) {
-        lt.enableRule(ruleName);
-      }
-      if (useEnabledOnly) {
-        // disable all rules except those enabled explicitly, if any:
+    for (String ruleName : enabledRules) {
+      lt.enableRule(ruleName);
+    }
+    if (useEnabledOnly) {
+      if (!enabledRules.isEmpty() && enabledCategories.isEmpty()) {
+        // With rule IDs only, disable every rule that was not enabled explicitly.
         for (Rule rule : lt.getAllRules()) {
-          if (!(enabledRules.contains(rule.getFullId()) || enabledRules.contains(rule.getId()))) {
+          boolean enabledById = enabledRules.contains(rule.getFullId()) || enabledRules.contains(rule.getId());
+          if (!enabledById) {
             lt.disableRule(rule.getFullId());
+          }
+        }
+      } else if (!enabledCategories.isEmpty()) {
+        if (enabledRules.isEmpty()) {
+          // With categories only, disable categories outside the enabled set.
+          for (CategoryId categoryId : lt.getCategories().keySet()) {
+            if (!enabledCategories.contains(categoryId)) {
+              lt.disableCategory(categoryId);
+            }
+          }
+        } else {
+          // With both, keep each rule's current state inside enabled categories
+          // and add explicitly enabled rules from outside those categories.
+          for (Rule rule : lt.getAllRules()) {
+            boolean enabledById = enabledRules.contains(rule.getFullId()) || enabledRules.contains(rule.getId());
+            boolean inEnabledCategory = enabledCategories.contains(rule.getCategory().getId());
+            if (!enabledById && !inEnabledCategory) {
+              lt.disableRule(rule.getFullId());
+            }
           }
         }
       }

@@ -14433,106 +14433,108 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
         </rule>
 
 
-        <!-- A NÍVEL PROFISSIONAL profissionalmente -->
-        <rulegroup id='A_NÍVEL_ADJC_NCC_ADVÉRBIO' name="✂️ A nível NC/Adj → Adv" type='style'>
-            <!--IDEA shorten_it-->
-            <!-- Created by Marco A.G.Pinto with Ricardo Joseh Lima suggestions, Portuguese rule 2023-01-06 + 2023-01-07 (25-JUL-2022+) -->
+        <rulegroup id='A_NÍVEL_ADJC_NCC_ADVÉRBIO' name="✂️ A nível + adjetivo → advérbio" type='style'>
+            <!-- ChatGPT 5.6 and new disambiguator for 2026+ -->
+
             <!--
-      É útil a nível profissional. → É útil profissionalmente.
-      É útil a nível civil. → É útil civilmente.
-      É útil a nível civil e militar. → É útil civil e militarmente.
-      É útil a nível civil, policial e militar. → É útil civil, policial e militarmente.
-      -->
+                Versão simplificada.
 
-                <antipattern>
-                    <token postag='RG'/>
-                    <token>a</token>
-                    <token>nível</token>
-                    <token postag='NC.+|AQ.+' postag_regexp='yes'/>
-                    <example>Questões de saúde na minha família, bem como a nível pessoal.</example>
-                    <example>A nível geográfico esta bem situado, tendo uma fácil acessibilidade tanto a nível terrestre como aéreo.</example>
-                    <example>A síntese de cristãos transformaram essas práticas, sem dúvida a nível local ...</example>
-                    <example>Passaram a dominar cada vez mais as políticas do estado, tanto a nível estadual quanto a nível nacional.</example>
-                </antipattern>
+                Apenas adjetivos que permitem acrescentar diretamente -mente.
+                Contexto limitado a "útil/úteis" para reduzir falsos positivos.
+            -->
 
-            <!-- É útil a nível civil. → É útil civilmente. -->
+            <!-- 1. É útil a nível profissional. → É útil profissionalmente. -->
             <rule>
                 <antipattern>
-                    <token postag='SPS00' postag_regexp='no'/>
-                    <token min="0" max="3" postag='NC.+|AQ.+|NP.+|RG' postag_regexp='yes'/>
                     <token>a</token>
                     <token>nível</token>
-                    <token postag='NC.+|AQ.+' postag_regexp='yes'/>
-                    <token postag='CS' postag_regexp='no'/>
-                    <token postag='V.+' postag_regexp='yes'/>
-                    <token postag='SPS00' postag_regexp='no'/>
-                    <example>O Poliempreende é uma rede de empreendedorismo a nível nacional que surgiu em 2003, como iniciativa do IP de Castelo Branco, alargando-se em 2006 a outras institui...</example>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token regexp='yes'>e|ou|,</token>
                 </antipattern>
 
                 <antipattern>
-                    <token postag='SENT_START|V.+|CS|PP.+|SPS00|DI.+|DA.+|_PUNCT' postag_regexp='yes'/>
-                    <token min="0" max="3" postag='NC.+|AQ.+|NP.+|RG' postag_regexp='yes'/>
                     <token>a</token>
                     <token>nível</token>
-                    <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
-                    <token postag='_PUNCT_COMMA|CC' postag_regexp='yes'/>
-                    <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
-                    <example>É útil a nível civil e militar.</example>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>de</token>
                 </antipattern>
 
                 <pattern>
-                    <token postag='SENT_START|V.+|CS|PP.+|SPS00|DI.+|DA.+|_PUNCT' postag_regexp='yes'/>
-                    <token min="0" max="3" postag='NC.+|AQ.+|NP.+|RG' postag_regexp='yes'/>
+                    <token regexp='yes'>útil|úteis</token>
                     <marker>
                         <token>a</token>
                         <token>nível</token>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
                     </marker>
                 </pattern>
                 <message>&simplify_msg;</message>
-                <suggestion>\5mente</suggestion>
+                <suggestion>\4mente</suggestion>
                 <example correction="profissionalmente">É útil <marker>a nível profissional</marker>.</example>
+                <example correction="civilmente">É útil <marker>a nível civil</marker>.</example>
+                <example correction="militarmente">É útil <marker>a nível militar</marker>.</example>
+                <example type="correct">A nível profissional, esta formação é útil.</example>
+                <example type="correct">É útil a nível geográfico.</example>
+                <example type="correct">É útil a nível pessoal.</example>
+                <example type="correct">É útil a nível nacional.</example>
+                <example type="correct">É útil a nível profissional e pessoal.</example>
             </rule>
 
-            <!-- É útil a nível civil e militar. → É útil civil e militarmente. -->
+            <!-- 2. É útil a nível civil e militar. → É útil civil e militarmente. -->
             <rule>
+                <antipattern>
+                    <token>a</token>
+                    <token>nível</token>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>e</token>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>de</token>
+                </antipattern>
+
                 <pattern>
-                    <token postag='SENT_START|V.+|CS|PP.+|SPS00|DI.+|DA.+|_PUNCT' postag_regexp='yes'/>
-                    <token min="0" max="3" postag='NC.+|AQ.+|NP.+|RG' postag_regexp='yes'/>
+                    <token regexp='yes'>útil|úteis</token>
                     <marker>
                         <token>a</token>
                         <token>nível</token>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
-                        <token postag='CC' postag_regexp='no'/>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
+                        <token>e</token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
                     </marker>
                 </pattern>
                 <message>&simplify_msg;</message>
-                <suggestion>\5 \6 \7mente</suggestion>
+                <suggestion>\4 e \6mente</suggestion>
                 <example correction="civil e militarmente">É útil <marker>a nível civil e militar</marker>.</example>
+                <example type="correct">É útil a nível civil e militar de uma organização.</example>
             </rule>
 
-            <!-- É útil a nível civil, policial e militar. → É útil civil, policial e militarmente. -->
+            <!-- 3. É útil a nível civil, policial e militar. -->
             <rule>
+                <antipattern>
+                    <token>a</token>
+                    <token>nível</token>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>,</token>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>e</token>
+                    <token regexp='yes'>profissional|civil|policial|militar</token>
+                    <token>de</token>
+                </antipattern>
+
                 <pattern>
-                    <token postag='SENT_START|V.+|CS|PP.+|SPS00|DI.+|DA.+|_PUNCT' postag_regexp='yes'/>
-                    <token min="0" max="3" postag='NC.+|AQ.+|NP.+|RG' postag_regexp='yes'/>
+                    <token regexp='yes'>útil|úteis</token>
                     <marker>
                         <token>a</token>
                         <token>nível</token>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
-                        <token postag='_PUNCT_COMMA' postag_regexp='no'/>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
-                        <token postag='CC' postag_regexp='no'/>
-                        <token postag='NCCS000|AQ0CS0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*</exception></token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
+                        <token>,</token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
+                        <token>e</token>
+                        <token regexp='yes'>profissional|civil|policial|militar</token>
                     </marker>
-                    <token negate_pos='yes' postag="SPS.+" postag_regexp="yes"/>
                 </pattern>
                 <message>&simplify_msg;</message>
-                <suggestion>\5\6 \7 \8 \9mente</suggestion>
-                <suggestion>\5\6 \7 \8 \9</suggestion>
-                <example correction="civil, policial e militarmente|civil, policial e militar">É útil <marker>a nível civil, policial e militar</marker>.</example>
-                <example>A nível nacional de reciclagem</example>
+                <suggestion>\4, \6 e \8mente</suggestion>
+                <example correction="civil, policial e militarmente">É útil <marker>a nível civil, policial e militar</marker>.</example>
+                <example type="correct">É útil a nível civil, policial e militar de uma organização.</example>
             </rule>
 
         </rulegroup>
@@ -14870,33 +14872,40 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
         </rulegroup>
 
 
-        <!-- DE FORMA/MODO + ADJ adv -->
-        <!--      Created by Marco A.G.Pinto, Portuguese rule 2020-10-08 (2-JUL-2020+)     -->
-        <rule id='DE_FORMA-MODO_ADJ' name="✂️ De + forma/modo + Adj → Adv" type="style" tags="picky">
-            <!--IDEA shorten_it-->
+        <rule id='DE_FORMA_MODO_ADJ_ADV' name="✂️ de forma/modo + adjetivo → advérbio em -mente" type='style' tags='picky'>
+            <!-- IDEA shorten_it -->
+            <!-- ChatGPT 5.6 and new disambiguator for 2026+ -->
+
             <antipattern>
                 <token>de</token>
-                <token regexp="yes">forma|modo</token>
-                <token postag='AQ0[CFM]S0' postag_regexp='yes'/>
+                <token regexp='yes'>forma|modo</token>
+                <token min='0' max='1' postag='RG'/>
+                <token postag='AQ0.S.+' postag_regexp='yes'/>
                 <token>com</token>
-                <example>É realizado de forma consistente com o protocolo</example>
+                <example>É realizado de forma consistente com o protocolo.</example>
             </antipattern>
+
             <antipattern>
                 <token>de</token>
-                <token regexp="yes">forma|modo</token>
-                <token postag='AQ0[CFM]S0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*|geral</exception></token>
+                <token regexp='yes'>forma|modo</token>
+                <token min='0' max='1' postag='RG'/>
+                <token postag='AQ0.S.+' postag_regexp='yes'><exception regexp='yes'>.*[áéíóúâêôãõàèìòù].*|geral</exception></token>
                 <token regexp='yes'>,|e|ou</token>
                 <token postag='AQ.+' postag_regexp='yes'/>
-                <example>Oriente de forma clara e coerente</example>
+                <example>Oriente de forma clara e coerente.</example>
             </antipattern>
+
             <pattern>
                 <token>de</token>
-                <token regexp="yes">forma|modo</token>
-                <token postag='AQ0[CFM]S0' postag_regexp='yes'><exception regexp="yes">.*[áéíóúâêôãõàèìòù].*|inclusiv[oa]|geral|pulverizada|transparente|especial|diferente|independente</exception></token>
+                <token regexp='yes'>forma|modo</token>
+                <token min='0' max='1' postag='RG'/>
+                <token postag='AQ0.S.+' postag_regexp='yes'><exception regexp='yes'>.*[áéíóúâêôãõàèìòù].*|bastante|demasiado|mais|menos|muito|pouco|tão|inclusiv[oa]|geral|pulverizada|transparente|especial|diferente|independente</exception></token>
             </pattern>
-            <message>Substitua por</message>
-            <suggestion><match no='3' postag='AQ0[CFM]S0' postag_regexp='yes' postag_replace='AQ0[CF]S0'/>mente</suggestion>
+            <message>Esta expressão pode ser mais concisa:</message>
+            <suggestion><match no='3' regexp_match='(.+)' regexp_replace='$1 '/><match no='4' postag='AQ0[CFM]S0' postag_regexp='yes' postag_replace='AQ0[CF]S0'/>mente</suggestion>
             <example correction="permanentemente">A Ana foi banida <marker>de forma permanente</marker> por violar as regras.</example>
+            <example correction="bastante claramente">Penso que explica <marker>de forma bastante clara</marker> o que correu mal.</example>
+            <example correction="muito claramente">Explicou <marker>de modo muito claro</marker> o problema.</example>
             <example>A Ana foi banida <marker>permanentemente</marker> por violar as regras.</example>
         </rule>
 

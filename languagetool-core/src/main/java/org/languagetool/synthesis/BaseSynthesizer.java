@@ -356,4 +356,9 @@ public class BaseSynthesizer implements Synthesizer {
     return posTags.get(posTags.size() - 1);
   }
 
+  public List<String> getPossibleTagsForSynthesis() throws IOException {
+    initPossibleTags();
+    return possibleTags;
+  }
+
 }

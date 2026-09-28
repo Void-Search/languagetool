@@ -14,6 +14,8 @@ Aiguadolç
 Aldocumar
 Almisrà
 Alphabet
+Altman
+Amodei
 Anacreont
 Ancelotti
 Andic
@@ -103,6 +105,7 @@ Gnossienne
 Gnossiennes
 Gratacós
 Griezmann
+Gènesi
 H1N1
 HDMI
 HTA
@@ -113,6 +116,7 @@ Henze
 Hiparc
 Humperdinck
 Huysmans
+IAG
 ICAM
 ICAN
 ICC
@@ -159,6 +163,7 @@ Miguel
 Mildenhall
 Minnie
 Modi
+Musikene
 Nakamoto
 Nauru
 Niebuhr
@@ -197,6 +202,7 @@ Rostec
 Russafa
 Russiagate
 Rússies
+SEC
 SEO
 SEPC
 SIAD
@@ -281,6 +287,15 @@ andalusització
 angla
 angle
 angles
+anglocentrisme
+anglocèntric
+anglocèntrica
+anglocèntrics
+anglocèntriques
+angloegipci
+angloegipcis
+angloegípcia
+angloegípcies
 anotador
 anotadora
 anotadores
@@ -288,6 +303,7 @@ anotadors
 antiaccidents
 antibarions
 antibarió
+antibots
 antibúnquer
 anticentre
 anticentres
@@ -331,6 +347,8 @@ aproximantitzacions
 aproximantització
 aquanauta
 aquanautes
+arabopersa
+araboperses
 artistoide
 artistoides
 atomista
@@ -921,8 +939,18 @@ contraangle
 contraangles
 contracrònica
 contracròniques
+contraelit
+contraelits
 contrainsurgència
 contrainsurgències
+contrastada
+contrastades
+contrastadíssim
+contrastadíssima
+contrastadíssimes
+contrastadíssims
+contrastat
+contrastats
 copatrocina
 copatrocinada
 copatrocinades
@@ -1006,6 +1034,8 @@ cronotip
 cronotips
 cros
 crosos
+crucigramista
+crucigramistes
 cuagrossa
 cuagrosses
 cuagrossos
@@ -2351,6 +2381,9 @@ linxador
 linxadora
 linxadores
 linxadors
+llargterminisme
+llargterminista
+llargterministes
 lliberticidi
 lliberticidis
 llibreteta
@@ -2655,6 +2688,7 @@ museïtzable
 museïtzables
 musicasset
 musicassets
+muskisme
 musos
 mussa
 musses
@@ -3711,6 +3745,9 @@ set
 sets
 setze
 setzes
+showwoman
+showwomans
+showwomen
 si
 sil·labific
 sil·labifica
@@ -3811,6 +3848,10 @@ sofrit
 sofrits
 soll
 solls
+somnambúlic
+somnambúlica
+somnambúlics
+somnambúliques
 son
 sons
 sor
@@ -3959,6 +4000,10 @@ triples
 tupins
 tupí
 tupís
+turboalimentada
+turboalimentades
+turboalimentat
+turboalimentats
 turbocapitalista
 turbocapitalistes
 turboglobalitzacions
